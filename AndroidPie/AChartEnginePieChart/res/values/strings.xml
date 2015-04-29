@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AChartEngine-PieChart</string>
+	<string name="add_values">添加数值</string>    
+	<string name="x">X轴</string>    
+	<string name="y">Y轴</string>
+	<string name="add">添加</string>
+	<string name="new_series">新的系列</string>
+</resources>

@@ -1,0 +1,286 @@
+package com.jiayuan.date.service.socket;
+
+import java.util.Calendar;
+import java.util.List;
+import java.util.regex.Pattern;
+
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.Service;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Vibrator;
+
+import com.date.R;
+import com.jiayuan.date.activity.Splash;
+import com.jiayuan.date.log.Log;
+import com.jiayuan.date.log.LogFactory;
+import com.jiayuan.date.service.ServicePool;
+import com.jiayuan.date.service.chat.ChatConstant;
+import com.jiayuan.date.service.chat.ChatItem;
+import com.jiayuan.date.service.socket.protocol.ChatProtocol;
+import com.jiayuan.date.service.user.UserManager;
+
+public class SocketUtils {
+
+	// static UserManager um = ServicePool.getinstance().getUserManager();
+	public static final String LOGIN_SUCCESS = "login_success";
+	public static final String TOKEN_OUT_OF_DATE = "token_out_of_date_relogin";
+	
+	public static final String MSGTYPE_CHAT = "0";
+	public static final String MSGTYPE_SYSTEM = "1";
+	
+	public static final String CHAT = "101";
+	public static final String FUNCITON_LOGIN = "login";
+	public static final String FUNCTION_SENDCHAT = "sendchat";
+	public static final String FUNCTION_NEWMSG = "newMsg";
+	public static final String FUNCTION_MESSAGE = "sysMsg";
+	public static final String FUNCTION_CHAT_CHATLIST = "chat_chatlist";
+	public static final String FUNCTION_USERINFOS = "userinfos";
+	public static final String FUNCTION_CHAT_READ_STATUS = "chat_setchatreaded";
+	
+	public static final String HEART_BEAT = "heartbeat";
+	
+	public static final String ONLINE_STATES = "124";
+	public static final String AUDIO_TYPE = "1";
+
+	public static final String PUSH_MSG = "push_messages";
+
+	public static long periodTime = 5000;
+	public static Log l = LogFactory.getLog(SocketUtils.class);
+
+	// get notice title
+	public static String getNoticeTitle(Context mContext, String function) {
+		String rtn = "";
+		if (function != null) {
+			 if(function.equals(FUNCTION_SENDCHAT) || function.equals(FUNCTION_NEWMSG)){
+				 rtn = mContext.getResources().getString(R.string.sokect_chat_notification);
+			 } else if(function.equals(FUNCTION_MESSAGE)){
+				 rtn = mContext.getResources().getString(R.string.sokect_date_notification);
+			 } 
+		}
+		return rtn;
+	}
+
+	public static Intent getIntent(Context context, String function, String uidOrMid, String msgType) {
+		Intent intent = new Intent();
+		if (function != null) {
+			 if(function.equals(FUNCTION_NEWMSG))
+			 {
+				 intent.putExtra("chat", true);
+				 intent.putExtra("uid", uidOrMid);
+			 } else if (function.equals(FUNCTION_MESSAGE)) {
+				 intent.putExtra("msgType", msgType);
+				 intent.putExtra("mid", uidOrMid);
+			 } 
+			 
+			 intent.setClass(context, Splash.class);
+		}
+		return intent;
+	}
+
+	public static boolean isInteger(String str) {
+		Pattern pattern = Pattern.compile("^[-\\+]?[\\d]*$");
+		return pattern.matcher(str).matches();
+	}
+
+	/**
+	 * sendNotification
+	 * 
+	 * @param mContext
+	 * @param args
+	 *            at least three args, the cmd, uid , nick must be given
+	 */
+	public static void showNotification(Context mContext, String... args) {
+		
+		String function = args[0];
+		String keyId = args[1];
+		String uidOrmid = args[2];
+		String nickname = "";
+		String messType = "";
+		if (args.length > 3) {
+			nickname = args[3];
+		} 
+		
+		String title = ""; // SocketUtils.getNoticeTitle(mContext, function);
+		String content = "";
+		
+		if (args.length > 4) {
+			title = args[4];
+			content = args[5];
+			messType = args[6];
+		}
+		
+		if(function.equals(FUNCTION_SENDCHAT) || function.equals(FUNCTION_NEWMSG)){
+			title = mContext.getResources().getString(R.string.sokect_chat_notification_title);
+			content = mContext.getResources().getString(R.string.sokect_chat_notification);
+		} 
+		
+		checkOffLineMessage(mContext, uidOrmid, title, content);
+		if (!isSocketOn(mContext))
+			return;
+		if (!checkSettingTime(mContext))
+			return;
+		
+//		else if(function.equals(FUNCTION_MESSAGE)){
+//			if (null == nickname) 
+//				content = mContext.getResources().getString(R.string.sokect_date_notification_msg);
+//			else
+//				content = String.format(mContext.getResources().getString(R.string.sokect_date_notification), nickname);
+//		} 
+
+		Notification notification = new Notification(R.drawable.icon, content,
+				System.currentTimeMillis());
+//		notification.defaults = Notification.DEFAULT_SOUND;
+		UserManager um = ServicePool.getinstance(mContext).getUserManager();
+		if (um != null && um.getCurrentUser() != null) {
+			String audi = um.getCurrentUser().socketAudioIsOn;
+			String vibra = um.getCurrentUser().socketVibrateIsOn;
+			if (audi != null && audi.equals("true") && vibra != null
+					&& vibra.equals("true")) {
+				notification.defaults = Notification.DEFAULT_ALL;
+				Vibrator vib = (Vibrator) mContext
+						.getSystemService(Service.VIBRATOR_SERVICE);
+				vib.vibrate(1000);
+			} else if (audi != null && audi.equals("true")) {
+				notification.defaults = Notification.DEFAULT_SOUND;
+			} else if (vibra != null && vibra.equals("true")) {
+				Vibrator vib = (Vibrator) mContext
+						.getSystemService(Service.VIBRATOR_SERVICE);
+				vib.vibrate(1000);
+				
+				long[] vibrate = { 0, 100, 200, 300 };
+				notification.vibrate = vibrate;
+			}
+		} else {
+			notification.defaults = Notification.DEFAULT_ALL;
+		}
+		
+		PendingIntent contentIntent = null;
+		if (null != uidOrmid && !uidOrmid.equals("")) {
+			Intent notificationIntent = SocketUtils.getIntent(mContext, function, uidOrmid, messType);
+			notificationIntent.setAction(System.currentTimeMillis() + "");
+			contentIntent = PendingIntent.getActivity(mContext, 0,
+					notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+		} else{
+			contentIntent = PendingIntent.getActivity(mContext, 0, null, PendingIntent.FLAG_UPDATE_CURRENT);
+		}
+		
+		notification.contentIntent = contentIntent;
+		notification.flags = Notification.FLAG_AUTO_CANCEL;
+		notification.setLatestEventInfo(mContext, title, content, contentIntent);
+		NotificationManager ntfMgr = (NotificationManager) mContext
+				.getSystemService(Context.NOTIFICATION_SERVICE);
+		ntfMgr.notify(new Integer(uidOrmid).intValue(), notification);
+	}
+
+	private static void checkOffLineMessage(Context ctx, String id, String title, String content) {
+		UserManager um = ServicePool.getinstance(ctx).getUserManager();
+		if (um == null || um.getCurrentUser() == null) {
+			
+			Notification notification = new Notification(R.drawable.icon, content,
+					System.currentTimeMillis());
+			notification.defaults = Notification.DEFAULT_SOUND;
+			long[] vibrate = { 0, 100, 200, 300 };
+			notification.vibrate = vibrate;
+			
+			Intent notificationIntent = new Intent();
+			notificationIntent.putExtra("reLogin", true);
+			notificationIntent.setClass(ctx, Splash.class);
+			notificationIntent.setAction(System.currentTimeMillis() + "");
+			PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0,
+					notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+			
+			notification.contentIntent = contentIntent;
+			notification.flags = Notification.FLAG_AUTO_CANCEL;
+			notification.setLatestEventInfo(ctx, title, content, contentIntent);
+			NotificationManager ntfMgr = (NotificationManager) ctx
+					.getSystemService(Context.NOTIFICATION_SERVICE);
+			ntfMgr.notify(new Integer(id).intValue(), notification);
+			return;
+		}
+	}
+
+	/**
+	 * 排序
+	 * @param data
+	 * @return
+	 */
+	public static List<PushMsgItem> sortData(List<PushMsgItem> data) {
+		for (int i = 0; i < data.size() - 1; i++) {
+			for (int j = 1; j < data.size() - i; j++) {
+				PushMsgItem temItem;
+				if (data.get(j - 1).timelong < data.get(j).timelong) {
+
+					temItem = data.get(j - 1);
+					data.set((j - 1), data.get(j));
+					data.set(j, temItem);
+				}
+			}
+		}
+		return data;
+	}
+
+	/**
+	 * check socket ison
+	 */
+	public static boolean isSocketOn(Context mContext) {
+		boolean ison = false;
+		UserManager um = ServicePool.getinstance(mContext).getUserManager();
+		if (um.getCurrentUser().socketIson != null
+				&& um.getCurrentUser().socketIson.equals("true")) {
+			ison = true;
+		}
+		return ison;
+	}
+
+	/**
+	 * check setting time
+	 */
+	public static boolean checkSettingTime(Context mContext) {
+		boolean isExceed = false;
+		UserManager um = ServicePool.getinstance(mContext).getUserManager();
+		String disturbIsOn = um.getCurrentUser().socketDisturbIsOn;
+		if (Boolean.valueOf(disturbIsOn)) {
+			Calendar calendar = Calendar.getInstance();
+			int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+			
+			int fromHour = new Integer(um.getCurrentUser().socketTimeFrom)
+					.intValue();
+			int endHour = new Integer(um.getCurrentUser().socketTimeEnd).intValue();
+			if (currentHour > endHour && currentHour < fromHour) {
+				isExceed = true;
+			}
+		} else 
+			isExceed = true;
+		
+		return isExceed;
+	}
+
+	/**
+	 * protocol change to ChatItem
+	 */
+	public static ChatItem getChatItem(ChatProtocol cp) {
+		ChatItem ci = new ChatItem();
+		ci.setContactId(cp.getFromUid());
+		ci.setTimeStamp(cp.getTime());
+		ci.setContent(cp.getChatmsg());
+		ci.setMsgType(cp.getMsgType());
+		ci.setMsgId(cp.getMsgId());
+		
+		ci.setMimeType(ChatConstant.MIME_TYPE_TEXT_PLAIN);
+		ci.setStatus(ChatConstant.MSG_SYNCHRONIZE_SUCCESS);
+		
+		
+//		if (cp.getMsgType() != null && cp.getMsgType().equals(AUDIO_TYPE)) {
+//			ci.setMimeType(ChatConstant.MIME_TYPE_AUIDO_AMR);
+//			ci.setStatus(ChatConstant.MSG_SYNCHRONIZING);
+//		} else {
+//			ci.setMimeType(ChatConstant.MIME_TYPE_TEXT_PLAIN);
+//			ci.setStatus(ChatConstant.MSG_SYNCHRONIZE_SUCCESS);
+//		}
+		return ci;
+	}
+
+}

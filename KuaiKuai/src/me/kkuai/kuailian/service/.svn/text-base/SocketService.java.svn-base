@@ -1,0 +1,559 @@
+package com.jiayuan.date.service.socket;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ConcurrentLinkedQueue;
+
+import javax.net.SocketFactory;
+
+import android.content.Context;
+import android.text.TextUtils;
+
+import com.jiayuan.date.log.Log;
+import com.jiayuan.date.log.LogFactory;
+import com.jiayuan.date.service.ServicePool;
+import com.jiayuan.date.service.config.ConfigAccess;
+import com.jiayuan.date.service.event.EventCenter;
+import com.jiayuan.date.service.event.EventListener;
+import com.jiayuan.date.service.network.NetStatusWatcher;
+import com.jiayuan.date.service.socket.protocol.LoginProtocol;
+import com.jiayuan.date.service.socket.protocol.Protocol;
+import com.jiayuan.date.service.socket.protocol.ProtocolFactory;
+import com.jiayuan.date.service.user.UserManager;
+import com.jiayuan.date.utils.MappingItemsHolder;
+import com.jiayuan.date.utils.Util;
+
+/**
+ * implements socket service to serve binary transfer
+ * @author ice
+ *
+ */
+
+public class SocketService implements EventListener
+{
+	protected Log l = LogFactory.getLog(getClass());
+	// queue those requests to send to server
+	protected ConcurrentLinkedQueue<Protocol> reqs = new ConcurrentLinkedQueue<Protocol>();
+	// queue those received data. to send to listener or to deal with my self
+	protected ConcurrentLinkedQueue<Protocol> recvs = new ConcurrentLinkedQueue<Protocol>();
+	// holds protocol command ID & listener mapping
+	protected MappingItemsHolder<String, SocketListener> listeners = new MappingItemsHolder<String, SocketListener>();
+	// socket server
+	protected String socketHost;
+	// socket port on servers
+	protected String socketHostPort;
+	protected SendTask st;
+	protected RecvTask rt;
+	protected DispatchTask dt;
+	public boolean isRunning;	// marks if service has been start
+	public boolean isConnected;	// marks if currently is connecting to server
+	protected Context mContext;
+	protected long lasttime ;
+//	protected long reconnectTryInterval = 10000; 
+	protected Timer mTimer ;
+	public HeartbeatMsgClient heartBeatClient;
+	protected EventCenter ec;
+	protected String sokectToken = null;
+
+	protected Socket socket;
+
+	//DataInputStream streamReader;
+	
+	/**
+	 * register server message listener. if connection has been ready before register then will call SocketListener.onConnectionStatusChanged() before return from this. 
+	 * @param protocolCode
+	 * @param sl
+	 * @return 'true' if listener register to service succeed, or 'false' if not
+	 */
+	public boolean registerListener(String protocolCode, SocketListener  sl)
+	{
+		listeners.addMapping(protocolCode, sl);
+		try
+		{
+			if(isConnected)
+				sl.onConnectionStatusChanged(SocketListener.SOCKET_CONNECTION_READY);
+			else
+				return false;
+		}
+		catch (Throwable e) {
+			l.error("error ", e);
+			return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * remove server message listener
+	 * @param l
+	 */
+	public void removeListener(SocketListener l)
+	{
+		listeners.removeMapping(l);
+	}
+	
+	/**
+	 * add request to send
+	 * the request will be cached until connection ready
+	 * @param p
+	 */
+	public void addRequest(Protocol p)
+	{
+		reqs.add(p);
+		synchronized(reqs)
+		{
+			reqs.notifyAll();
+		}
+	}
+	
+	public void init(Context ctx){
+		this.mContext = ctx;
+		socketHost = ServicePool.getinstance(ctx).getConfig().getConfig(ConfigAccess.SOCKET_HOST);
+		socketHostPort = ServicePool.getinstance(ctx).getConfig().getConfig(ConfigAccess.SOCKET_HOST_PORT);
+		
+		heartBeatClient = new HeartbeatMsgClient();
+		heartBeatClient.init(ctx); //start heartbeat check
+		
+	}
+	
+	public void start()
+	{
+		if(isRunning) return;
+		isRunning = true;
+		if(socketHost == null)
+		{
+			socketHost = ServicePool.getinstance(mContext).getConfig().getConfig(ConfigAccess.SOCKET_HOST);
+		}
+		
+		ServicePool.getinstance(mContext).getEventCenter().registerListener(this, NetStatusWatcher.NETWORK_CONNECTION_ON);
+		ServicePool.getinstance(mContext).getEventCenter().registerListener(this, NetStatusWatcher.NETWORK_CONNECTION_OFF);
+		ServicePool.getinstance(mContext).getEventCenter().registerListener(this, SocketUtils.LOGIN_SUCCESS);
+		ServicePool.getinstance(mContext).getEventCenter().registerListener(this, SocketUtils.TOKEN_OUT_OF_DATE);
+		
+		setupConnection();
+//		heartBeatClient.start();
+	}
+	
+	public void stop()
+	{
+		isRunning = false;
+		heartBeatClient.stop();
+		socketHost = null;
+		sokectToken = null;
+		//listeners.clear();
+		clearConnection();
+		ServicePool.getinstance(mContext).getEventCenter().removeListener(this, NetStatusWatcher.NETWORK_CONNECTION_ON);
+		ServicePool.getinstance(mContext).getEventCenter().removeListener(this, NetStatusWatcher.NETWORK_CONNECTION_OFF);
+		ServicePool.getinstance(mContext).getEventCenter().removeListener(this, SocketUtils.LOGIN_SUCCESS);
+		ServicePool.getinstance(mContext).getEventCenter().removeListener(this, SocketUtils.TOKEN_OUT_OF_DATE);
+	}
+	
+	/**
+	 * process for connection error
+	 */
+	public synchronized void onConnectionError()
+	{
+		try
+		{
+			if(!isRunning)
+				return;
+			if(!isConnected)
+				return;
+			l.debug("reconn in onConnectionError.........");
+			for(Set<SocketListener> set : listeners.values())
+			{
+				for(SocketListener sl : set)
+				{
+					if(sl != null)
+						sl.onConnectionStatusChanged(SocketListener.SOCKET_CONNECTION_FAILED);
+				}
+			}
+			reqs.clear();
+			clearConnection();
+			
+			String cs = ServicePool.getinstance(mContext).getNetStatusWatcher().getConnecitonStatus();
+			if(TextUtils.equals(cs, NetStatusWatcher.NETWORK_CONNECTION_ON))
+				delayConnect();
+		}
+		catch (Throwable e) {
+			l.error("error ", e);
+		}
+	}
+	
+	/**
+	 * check if currently proper network connected
+	 * @return
+	 */
+	protected boolean isNetworkReady()
+	{
+		 NetStatusWatcher nsw = ServicePool.getinstance(mContext).getNetStatusWatcher();
+		 if(TextUtils.equals(nsw.getConnecitonStatus(), NetStatusWatcher.NETWORK_CONNECTION_OFF))
+			 return false;
+		 if(TextUtils.equals(nsw.getConnecitonType(), NetStatusWatcher.NETWORK_CONNECTION_TYPE_WIFI))
+			 return true;
+		 
+		 if(TextUtils.equals(nsw.getConnecitonType(), NetStatusWatcher.NETWORK_CONNECTION_TYPE_GPRS) &&
+				 TextUtils.equals(nsw.getConnecitonApnType(), NetStatusWatcher.CONNECTION_APN_TYPE_WAP))
+			 return false;
+		 else
+			 return true;
+	}
+	
+	/**
+	 * to clear current read & send tasks
+	 */
+	protected void clearConnection()
+	{
+		isConnected = false;
+		
+		if(st != null)
+		{
+			st.isStop = true;
+			st.interrupt();
+			st = null;
+		}
+		if(rt != null)
+		{
+			rt.isStop = true;
+			rt.interrupt();
+			if(rt.dis != null)
+			{
+				try {
+					rt.dis.close();
+				} catch (IOException e) {
+					l.error("close rt.dis error : ", e);
+				}
+			}
+			rt = null;
+		}
+		if(dt != null)
+		{
+			dt.isStop = true;
+			dt.interrupt();
+			dt = null;
+			
+		}
+		
+		if(heartBeatClient != null)
+			heartBeatClient.stop();
+		
+		if(socket != null)
+			try
+			{
+				socket.close();
+			}
+			catch (IOException e)
+			{
+			}
+		
+		if (null != sokectToken)
+			sokectToken = null;
+	}
+	
+	protected Socket genSocket() throws UnknownHostException,SocketException, IOException
+	{
+		l.debug("the socketHost is " + socketHost + ", the socketHostPort is " + socketHostPort);
+		Socket s = SocketFactory.getDefault().createSocket(socketHost, new Integer(socketHostPort).intValue());
+//		s.setSoTimeout(5000);
+		return s;
+	}
+	
+	/**
+	 * setup socket connect & start read & send tasks
+	 */
+	protected synchronized void setupConnection()
+	{
+		if(!isNetworkReady())
+			return;
+		if(isConnected)
+			return;
+		if(ServicePool.getinstance(mContext).getUserManager().getCurrentUser() == null)
+			return;
+		l.debug("setupConnection");
+		try
+		{
+
+			socket = genSocket();
+             
+			OutputStream output = socket.getOutputStream();
+//			DataOutputStream output = new DataOutputStream(socket.getOutputStream()); //将dos指向soc的输出流
+//			output.write(SocketUtils.getConnectUrl(mContext).getBytes());
+//			output.flush();
+			DataInputStream streamReader = new DataInputStream(socket.getInputStream());
+//			DataInputStream streamReader = new DataInputStream(socket.getInputStream());  //将dis指向soc的输入流
+//			ProtocolFactory.readHeader(streamReader);
+//          String beginStr = ProtocolFactory.checkBeginData(streamReader);
+			
+			st = new SendTask();
+			st.isStop = false;
+			st.os =  new DataOutputStream(output);
+			
+			rt = new RecvTask();
+			rt.isStop = false;
+			rt.dis = streamReader;
+			
+			dt = new DispatchTask();
+			dt.isStop = false;
+			
+			st.start();
+			rt.start();
+			dt.start();
+			
+			isConnected = true;
+			l.debug("setup connection ok");
+			
+			heartBeatClient.start();
+			
+			try
+			{
+				for(String key : listeners.keySet())
+					for(SocketListener sl : listeners.getMappedItems(key))
+						if(sl != null)
+							sl.onConnectionStatusChanged(SocketListener.SOCKET_CONNECTION_READY);
+			}
+			catch (Throwable e) {
+				l.error("error ", e);
+			}
+		}
+		catch (Exception e) 
+		{
+			clearConnection();
+			l.error("error on initial socket connection", e);
+			delayConnect();
+		} 
+	}
+	
+	
+	/**
+	 * start a delay task to call connect
+	 */
+	protected void delayConnect()
+	{
+		if(mTimer != null)
+			mTimer.cancel();
+		mTimer = new Timer(true);
+		TimerTask tt = new TimerTask(){
+			@Override
+			public void run() {
+				if(!isRunning)
+					return;
+				l.debug("delay call doconnect()");
+				setupConnection();
+				
+				sendLoginVertify();
+			}
+		};
+		mTimer.schedule(tt, 5000);
+		lasttime = System.currentTimeMillis();
+	}
+	
+	protected synchronized void sendLoginVertify() {
+		
+		if(ServicePool.getinstance(mContext).getUserManager().getCurrentUser() == null)
+			return;
+		
+		l.debug("send socket login message");
+		LoginProtocol login = new LoginProtocol();
+		login.sendLoginVertify(mContext);
+		//  send login success info
+		addRequest(login);
+	}
+	
+	// to send request
+	protected class SendTask extends Thread
+	{
+		protected void toWait()
+		{
+			synchronized (this)
+			{
+				try
+				{
+					wait(2000);
+				}
+				catch (InterruptedException e)
+				{
+				}
+			}
+		}
+		
+		protected OutputStream os;
+		protected boolean isStop;
+		public void run()
+		{
+			
+			StringBuilder sb = new StringBuilder();
+			while(!isStop)
+			{
+				Protocol p = reqs.poll();
+				if(p == null)
+					toWait();
+				else
+				{
+					try
+					{
+						if(isConnected)
+						{
+							sb.setLength(0);
+							sb.append("to send message : ").append(new String(p.getContentData()));
+							l.debug(sb.toString());
+							byte[] chatContent = p.getContentData();
+							byte[] sendDataByte = null;
+							
+							if (chatContent.length == 1) {
+								sendDataByte = chatContent;
+							} else {
+								sendDataByte = ProtocolFactory.fingerprintAndunSecret(chatContent, 0, chatContent.length, sokectToken);
+								l.debug("finger token ==== > " + sokectToken);
+							}
+							
+							byte[] intByte = ProtocolFactory.intToByteArray(sendDataByte.length);
+							
+							os.write(intByte);
+							os.write(sendDataByte);
+							os.flush();
+						}
+					}
+					catch (SocketException e)
+					{
+						l.error("it has broken pipe error, not influence user's socket link");
+						onConnectionError();
+						break;
+					}
+					catch (IOException e)
+					{
+						l.error("error while send protocol:" + p.getCmd(), e);
+						onConnectionError();
+						break;
+					}
+					
+				}
+			}
+			
+			Util.close(os);
+		}
+	}
+	
+	// to receive message
+	protected class RecvTask extends Thread
+	{
+		protected InputStream is;
+		protected boolean isStop;
+		DataInputStream dis;
+		public void run()
+		{
+			while(!isStop && !interrupted())
+			{
+				try
+				{
+					Protocol p = ProtocolFactory.getInstance().parseData(dis, mContext);
+					l.debug("Protocol p ====>" + p);
+					if(null != p)
+					{
+						l.debug("protocol recved: " + p.toString());
+						recvs.offer(p);
+						synchronized (dt)
+						{
+							dt.notifyAll();
+						}
+					}
+				}
+				catch (Exception e)
+				{
+					l.error("error while reading socket", e);
+			//		onConnectionError();
+					break;
+				}
+			}
+			
+			Util.close(dis);
+			Util.close(is);
+		}
+	}
+	
+	// to dispatch message
+	protected class DispatchTask extends Thread
+	{
+		protected boolean isStop;
+		protected void toWait()
+		{
+			synchronized (this)
+			{
+				try
+				{
+					wait();
+				}
+				catch (InterruptedException e)
+				{
+				}
+			}
+		}
+		public void run()
+		{
+			while(!isStop)
+			{
+				Protocol p = recvs.poll();
+				if(p == null)
+					toWait();
+				else
+				{
+					Set<SocketListener> ls = listeners.getMappedItems(p.getCmd());
+					if(ls != null)
+						for(SocketListener sl : ls)
+							try
+							{
+								sl.onDataReceived(p);	
+							}
+							catch (Exception e)
+							{
+								l.error("error while fire message to: " + sl.toString(), e);
+							}
+				}
+			}
+		}
+	}
+	
+	public void onEvent(Object source, String event) 
+	{
+		 if(NetStatusWatcher.NETWORK_CONNECTION_ON.equals(event))
+		 {
+			 l.debug("reconnect socket..........");
+			 if(isNetworkReady())
+				//synchronized (this)
+				{
+					 UserManager um = ServicePool.getinstance(mContext).getUserManager();
+					 if(um!=null && um.getCurrentUser()!=null)
+					 {
+						 delayConnect();
+					 }
+				}
+		 } else  if(NetStatusWatcher.NETWORK_CONNECTION_OFF.equals(event))
+		 {
+			 l.debug("network close off..........");
+			 onConnectionError();
+		 } else if (event.equals(SocketUtils.LOGIN_SUCCESS) || event.equals(SocketUtils.TOKEN_OUT_OF_DATE)) {
+			 l.debug("login success ,  send socket login message");
+			 LoginProtocol login = new LoginProtocol();
+			 login.sendLoginVertify(mContext);
+			 //  send login success info
+			 addRequest(login);
+		 }
+	}
+
+	public String getSokectToken() {
+		return sokectToken;
+	}
+
+	public void setSokectToken(String sokectToken) {
+		this.sokectToken = sokectToken;
+	}
+	
+	
+}

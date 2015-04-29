@@ -1,0 +1,73 @@
+package com.jiayuan.date.service.socket;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import android.content.Context;
+
+import com.jiayuan.date.log.Log;
+import com.jiayuan.date.log.LogFactory;
+import com.jiayuan.date.service.ServicePool;
+import com.jiayuan.date.service.socket.protocol.LoginProtocol;
+import com.jiayuan.date.service.socket.protocol.OffLineMessageProtocol;
+import com.jiayuan.date.service.socket.protocol.Protocol;
+
+public class LoginClient implements SocketListener {
+
+	protected List<SocketListener> listeners = new LinkedList<SocketListener>();
+	protected Context mContext;
+	protected Log l = LogFactory.getLog(getClass());
+	protected volatile String connStatus; // marks current connection status
+
+	public void init(Context ctx, SocketService ss) {
+		this.mContext = ctx;
+		if (!ss.listeners.isContained(SocketUtils.FUNCITON_LOGIN, this)) {
+			ss.registerListener(SocketUtils.FUNCITON_LOGIN, this);
+		} 
+	}
+
+	/**
+	 * register socket status listener. Listeners will not be called on
+	 * onDataReceived()
+	 * 
+	 * @param sl
+	 */
+	public synchronized void registerSocketListener(SocketListener sl) {
+		listeners.add(sl);
+		sl.onConnectionStatusChanged(connStatus);
+	}
+
+	/**
+	 * remove socket status listener
+	 * 
+	 * @param sl
+	 */
+	public synchronized void removeSocketListener(SocketListener sl) {
+		listeners.remove(sl);
+	}
+
+	public void onDataReceived(Protocol p) {
+		LoginProtocol lp = (LoginProtocol) p;
+		l.debug("login token ==============> " + lp.getToken());
+		ServicePool.getinstance(mContext).getSocketService().setSokectToken(lp.getToken());
+		
+		// send unread chatMsg content
+		OffLineMessageProtocol chatProtocol = new OffLineMessageProtocol();
+		chatProtocol.sendGetUnreadMessage(mContext, SocketUtils.MSGTYPE_CHAT);
+		ServicePool.getinstance(mContext).getSocketService().addRequest(chatProtocol);
+		
+		// send unread system message
+		OffLineMessageProtocol systemProtocol = new OffLineMessageProtocol();
+		systemProtocol.sendGetUnreadMessage(mContext, SocketUtils.MSGTYPE_SYSTEM);
+		ServicePool.getinstance(mContext).getSocketService().addRequest(systemProtocol);
+		
+	}
+
+	@Override
+	public void onConnectionStatusChanged(String newStatus) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+}

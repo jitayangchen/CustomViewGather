@@ -1,0 +1,127 @@
+package com.jiayuan.date.service.socket;
+
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
+import android.content.Context;
+
+import com.jiayuan.date.log.Log;
+import com.jiayuan.date.log.LogFactory;
+import com.jiayuan.date.service.ServicePool;
+import com.jiayuan.date.service.chat.ChatConstant;
+import com.jiayuan.date.service.chat.ChatContact;
+import com.jiayuan.date.service.chat.ChatContactRepository;
+import com.jiayuan.date.service.chat.ChatContactUpdateDispatcher;
+import com.jiayuan.date.service.chat.ChatItem;
+import com.jiayuan.date.service.chat.ChatListItem;
+import com.jiayuan.date.service.socket.protocol.ChatProtocol;
+import com.jiayuan.date.service.socket.protocol.Protocol;
+
+public class ChatClient implements SocketListener {
+
+	protected List<SocketListener> listeners = new LinkedList<SocketListener>();
+	protected Context mContext;
+	protected Log l = LogFactory.getLog(getClass());
+	protected volatile String connStatus; // marks current connection status
+
+	public void init(Context ctx, SocketService ss) {
+		this.mContext = ctx;
+		if (!ss.listeners.isContained(SocketUtils.CHAT, this)) {
+			ss.registerListener(SocketUtils.CHAT, this);
+		} 
+	}
+
+	/**
+	 * register socket status listener. Listeners will not be called on
+	 * onDataReceived()
+	 * 
+	 * @param sl
+	 */
+	public synchronized void registerSocketListener(SocketListener sl) {
+		listeners.add(sl);
+		sl.onConnectionStatusChanged(connStatus);
+	}
+
+	/**
+	 * remove socket status listener
+	 * 
+	 * @param sl
+	 */
+	public synchronized void removeSocketListener(SocketListener sl) {
+		listeners.remove(sl);
+	}
+
+	public void onDataReceived(Protocol p) {
+		ChatProtocol cp = (ChatProtocol) p;
+		if (cp.getMsgType() != null && cp.getMsgType().equals(ChatConstant.MSG_SELF))
+			serverResponse(cp);
+		else
+			receiveMsgFromServer(cp);
+	}
+
+	// server response , when ack is 1,the msg send success
+	public void serverResponse(ChatProtocol cp) {
+		l.debug("chat message send success...");
+		ChatContactRepository ccr = ServicePool.getinstance(mContext)
+				.getChatContactRepository();
+		ChatContact retCC = (ChatContact) ccr.getContact(cp.getToUid());
+		ChatItem ci = retCC.getChatItem(cp.getKeyId());
+		if (null != ci) {
+			ci.setStatus(cp.getMsgStatus());
+			ci.setReadStatus(1);
+			retCC.updateChatItem(ci);
+			ccr.getChatContactUpdateDispatcher().fireMsg(retCC,
+					ChatContact.CONTACT_EVENT_CHAT_ITEM_UPDATE);
+		}
+	}
+
+	// receive new message from server
+	public void receiveMsgFromServer(ChatProtocol cp) {
+		ChatItem ci = SocketUtils.getChatItem(cp);
+		ChatContactRepository ccr = ServicePool.getinstance(mContext)
+				.getChatContactRepository();
+		ChatContact cc = ccr.getContact(cp.getFromUid());
+		if (cc == null) {
+			ChatListItem cli = new ChatListItem();
+			cli.uid = cp.getFromUid();
+		//	cli.nickName = cp.getFromNick();
+			cc = (ChatContact) ccr.addContact(cli, new Date().toLocaleString());
+		}
+		ci.setTimeStamp(String.valueOf(System.currentTimeMillis()));
+		ci.setId(new Long(cc.saveChatItem(ci, mContext)).intValue());
+		cc.responseOnNewMessage(ci, cp, mContext);
+	}
+
+	public synchronized void onConnectionStatusChanged(String newStatus) {
+		connStatus = newStatus;
+
+		for (SocketListener sl : listeners)
+			sl.onConnectionStatusChanged(connStatus);
+
+		if (connStatus == SOCKET_CONNECTION_FAILED) {
+			ChatContactRepository ccr = ServicePool.getinstance(mContext)
+					.getChatContactRepository();
+			ChatContactUpdateDispatcher cud = ccr
+					.getChatContactUpdateDispatcher();
+			List<ChatContact> ls = ccr.getSendingMessageContacts();
+			if (ls != null) {
+				for (int i = 0; i < ls.size(); i++) {
+					ChatContact cc = ls.get(i);
+					cc.onConnectionStatusChanged(connStatus);
+					List<ChatItem> sendingItems = cc.getSendingChatItems();
+					for (int j = 0; j < sendingItems.size(); j++) {
+						ChatItem item = sendingItems.get(j);
+						if (item.getStatus() == ChatConstant.MSG_SYNCHRONIZING) {
+							item.setStatus(ChatConstant.MSG_SYNCHRONIZE_FAILED);
+							cc.updateChatItem(item);
+						}
+							
+					}
+					cud.fireMsg(cc, ChatContact.CONTACT_EVENT_CHAT_ITEM_UPDATE);
+				}
+			}
+		}
+	}
+
+}

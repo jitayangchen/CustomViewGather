@@ -1,0 +1,43 @@
+package com.jiayuan.date.service.socket;
+
+import android.content.Context;
+
+import com.jiayuan.date.log.Log;
+import com.jiayuan.date.log.LogFactory;
+import com.jiayuan.date.service.ServicePool;
+import com.jiayuan.date.service.socket.protocol.AcceptProtocol;
+import com.jiayuan.date.service.socket.protocol.Protocol;
+
+public class ReceiveMsgClient implements SocketListener {
+	Context mContext;
+	protected SocketService ss;
+	Log l = LogFactory.getLog(ReceiveMsgClient.class);
+    public void init(Context ctx){
+    	this.mContext = ctx;
+    	ss = ServicePool.getinstance(ctx).getSocketService();
+//    	if(!ss.listeners.isContained(SocketUtils.NEW_EMAIL, this))
+//    	{
+//    		ss.registerListener(SocketUtils.NEW_EMAIL, this);
+//    	}
+//    	if(!ss.listeners.isContained(SocketUtils.LOOKING_ME, this))
+//    	{
+//    		ss.registerListener(SocketUtils.LOOKING_ME, this);
+//    	}
+    }
+	
+	public void onDataReceived(Protocol p) 
+	{
+		AcceptProtocol ap = (AcceptProtocol) p;
+		//SocketUtils.showNotification(mContext, ap);
+		String uid = ap.getUid();
+		String nick = ap.getNick();
+		String cmd = ap.getCmd();
+		SocketUtils.showNotification(mContext, cmd, uid, nick);
+	}
+
+	public void onConnectionStatusChanged(String newStatus)
+	{
+		
+	}
+
+}

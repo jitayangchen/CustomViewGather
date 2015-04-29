@@ -1,0 +1,13 @@
+package com.jiayuan.date.service.socket;
+
+public class PushMsgItem {
+
+	public String cmd;
+	public String uid;
+	public String nick;
+	public String desc;
+	public String date;
+	public String avatar;
+	public String content;
+	public long timelong;
+}

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pink"
+        android:padding="10dip" >
+        
+        <Button
+            android:id="@+id/iv_main_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@drawable/bg_btn_main_chat_selector" />
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal" >
+	        <ImageView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/logo_kuaikuai" />
+        
+	        <TextView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_vertical"
+	            android:layout_marginLeft="5dip"
+	            android:textSize="@dimen/text_size_17sp"
+	            android:textColor="@color/white"
+	            android:text="@string/nation_wide" />
+        </LinearLayout>
+        
+        <Button
+            android:id="@+id/btn_owner_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_btn_main_profile_selector" />
+        
+    </RelativeLayout>
+    
+	<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_main_activity" >
+        
+	    <me.kkuai.kuailian.widget.GalleryMain
+	        android:id="@+id/gallery_recommend_user"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="25dip"
+	        android:layout_gravity="center_vertical"
+    		android:spacing="10dip" />
+	    
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_above="@+id/rl_main_bottom"
+	        android:layout_marginBottom="50dip"
+	        android:orientation="horizontal" >
+	        <RelativeLayout
+	            android:id="@+id/rl_join"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginRight="30dip"
+	            android:paddingRight="5dip"
+	            android:background="@drawable/bg_btn_join"
+	            android:layout_weight="1" >
+	            
+	            <LinearLayout
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_centerVertical="true"
+	                android:gravity="center"
+	                android:layout_toLeftOf="@+id/btn_join"
+	                android:orientation="vertical" >
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:textSize="@dimen/text_size_15sp"
+		                android:textColor="@android:color/white"
+		                android:text="@string/main_join" />
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:textColor="@color/white"
+		                android:textSize="@dimen/text_size_11sp"
+		                android:text="@string/main_join_notes" />
+	            </LinearLayout>
+	            
+	            <Button
+	                android:id="@+id/btn_join"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="5dip"
+	                android:layout_marginBottom="5dip"
+	                android:layout_alignParentRight="true"
+	                android:layout_centerVertical="true"
+	                android:background="@drawable/bg_btn_join_selector" />
+	            
+	        </RelativeLayout>
+	        <RelativeLayout
+	            android:id="@+id/rl_watch"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:layout_marginLeft="30dip"
+	            android:layout_weight="1"
+	            android:paddingLeft="5dip"
+	            android:background="@drawable/bg_btn_watch" >
+
+	            <Button
+	                android:id="@+id/btn_watch"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="5dip"
+	                android:layout_marginBottom="5dip"
+	                android:layout_centerVertical="true"
+	                android:background="@drawable/bg_btn_watch_selector" />
+	            
+	            <LinearLayout
+	                android:layout_width="match_parent"
+	                android:layout_height="wrap_content"
+	                android:layout_centerVertical="true"
+	                android:gravity="center"
+	                android:layout_toRightOf="@id/btn_watch"
+	                android:orientation="vertical" >
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:textColor="@android:color/white"
+		                android:textSize="@dimen/text_size_15sp"
+		                android:text="@string/main_watch" />
+		            
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:textColor="@color/white"
+		                android:textSize="@dimen/text_size_11sp"
+		                android:text="@string/main_watch_notes" />
+	            </LinearLayout>
+	            
+	        </RelativeLayout>
+	    </LinearLayout>
+	    
+	    <RelativeLayout
+	        android:id="@+id/rl_main_bottom"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true"
+	        android:background="@drawable/main_bottom"
+	        android:visibility="visible" >
+	        <RelativeLayout
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:paddingBottom="10dip" >
+		        <RelativeLayout
+		            android:id="@+id/rl_joinedkk_countdown"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content" >
+		            
+		            <TextView
+		                android:id="@+id/tv_countdown"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_marginBottom="5dip"
+		                android:layout_centerVertical="true"
+		                android:layout_toLeftOf="@+id/tv_play_time"
+		                android:layout_marginRight="10dip"
+		                android:text="@string/main_countdown"
+		                android:textSize="@dimen/text_size_20sp"
+			            android:textColor="@color/white" />
+		            
+			        <TextView
+			            android:id="@+id/tv_play_time"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_marginBottom="5dip"
+			            android:layout_centerInParent="true"
+			            android:textSize="@dimen/text_size_20sp"
+			            android:textColor="@color/white" />
+			        
+			        <Button
+			            android:id="@+id/btn_enter_room"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:layout_marginBottom="5dip"
+			            android:layout_marginRight="10dip"
+			            android:padding="5dip"
+			            android:background="@drawable/bg_btn_record_voice_selector"
+			            android:layout_alignParentRight="true"
+			            android:text="@string/main_advance"
+			            android:textSize="@dimen/text_size_20sp"
+			            android:textColor="@color/white" />
+		        </RelativeLayout>
+	        </RelativeLayout>
+	        
+       	</RelativeLayout>
+	    
+    </RelativeLayout>
+
+</LinearLayout>

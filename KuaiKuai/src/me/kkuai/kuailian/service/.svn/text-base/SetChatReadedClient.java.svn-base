@@ -1,0 +1,41 @@
+package com.jiayuan.date.service.socket;
+
+import android.content.Context;
+
+import com.jiayuan.date.log.Log;
+import com.jiayuan.date.log.LogFactory;
+import com.jiayuan.date.service.ServicePool;
+import com.jiayuan.date.service.chat.ChatContactRepository;
+import com.jiayuan.date.service.socket.protocol.SetChatReadedProtocol;
+import com.jiayuan.date.service.socket.protocol.Protocol;
+
+/**
+ * set chat message is readed
+ * @author gaogb
+ *
+ */
+public class SetChatReadedClient implements SocketListener{
+
+	protected Context mContext;
+	protected Log l = LogFactory.getLog(getClass());
+	
+	public void init(Context ctx, SocketService ss) {
+		this.mContext = ctx;
+		if (!ss.listeners.isContained(SocketUtils.FUNCTION_CHAT_READ_STATUS, this)) {
+			ss.registerListener(SocketUtils.FUNCTION_CHAT_READ_STATUS, this);
+		} 
+	}
+	
+	@Override
+	public void onDataReceived(Protocol p) {
+		SetChatReadedProtocol csp = (SetChatReadedProtocol)p;
+
+	}
+
+	@Override
+	public void onConnectionStatusChanged(String newStatus) {
+		
+	}
+
+	
+}

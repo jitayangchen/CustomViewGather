@@ -1,0 +1,120 @@
+package com.jiayuan.date.service.socket;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import android.content.Context;
+
+import com.jiayuan.date.activity.AppContentValues;
+import com.jiayuan.date.db.MessageDBHelpler;
+import com.jiayuan.date.db.MessageVo;
+import com.jiayuan.date.log.Log;
+import com.jiayuan.date.log.LogFactory;
+import com.jiayuan.date.service.ServicePool;
+import com.jiayuan.date.service.socket.protocol.MessageProtocol;
+import com.jiayuan.date.service.socket.protocol.Protocol;
+import com.jiayuan.date.service.user.UserManager;
+
+public class MessageClient implements SocketListener {
+	
+	public static final String MESSAGE_NORMAL = "Normal";
+	public static final String MESSAGE_DATE = "MeetingNotify";
+	public static final String MESSAGE_GIFT = "GiftNotify";
+	
+	public static final String MESSAGE_TYPE_NORMAL = "-1";
+	public static final String MESSAGE_TYPE_DATE = "0";
+	public static final String MESSAGE_TYPE_GIFT = "1";
+	
+	public static final String SYSTEM_MESSAGE = "sysMsg"; 
+	
+	protected List<SocketListener> listeners = new LinkedList<SocketListener>();
+	protected Context mContext;
+	protected UserManager um;
+	protected Log l = LogFactory.getLog(getClass());
+	protected volatile String connStatus; // marks current connection status
+
+	public void init(Context ctx, SocketService ss) {
+		this.mContext = ctx;
+		um = ServicePool.getinstance(mContext).getUserManager();
+		if (!ss.listeners.isContained(SocketUtils.FUNCTION_MESSAGE, this)) {
+			ss.registerListener(SocketUtils.FUNCTION_MESSAGE, this);
+		} 
+	}
+	
+	/**
+	 * register socket status listener. Listeners will not be called on
+	 * onDataReceived()
+	 * 
+	 * @param sl
+	 */
+	public synchronized void registerSocketListener(SocketListener sl) {
+		listeners.add(sl);
+		sl.onConnectionStatusChanged(connStatus);
+	}
+
+	/**
+	 * remove socket status listener
+	 * 
+	 * @param sl
+	 */
+	public synchronized void removeSocketListener(SocketListener sl) {
+		listeners.remove(sl);
+	}
+
+	@Override
+	public void onDataReceived(Protocol p) {
+		MessageProtocol messProtocol = (MessageProtocol) p;
+		
+		MessageVo mess = new MessageVo();
+		mess.setMsgId(messProtocol.getMessageId());
+		mess.setTitle(messProtocol.getTitle());
+		mess.setMessage(messProtocol.getMessage());
+		mess.setTime(messProtocol.getTime());
+		mess.setReadStatus(messProtocol.getReadStatus());
+		
+		mess.setUid(messProtocol.getOuid());
+		mess.setNickname(messProtocol.getOnickname());
+		mess.setAvatar(messProtocol.getOavatar());
+		mess.setMsgType(MESSAGE_TYPE_NORMAL);
+		
+		if (null != messProtocol.getCmdtype()) {
+			if (messProtocol.getCmdtype().equals(MESSAGE_DATE)) {
+				
+				mess.setM_g_id(messProtocol.getMid());
+				mess.setMsgType(MESSAGE_TYPE_DATE);
+				
+			} else if (messProtocol.getCmdtype().equals(MESSAGE_GIFT)) {
+				mess.setM_g_id(messProtocol.getGiftId());
+				mess.setMsgType(MESSAGE_TYPE_GIFT);
+			} 
+		} 
+		
+		String msgId = mess.getM_g_id();
+		String function = messProtocol.getFunction();
+		String keyId = messProtocol.getMessageId();
+		String nick = messProtocol.getOnickname();
+//		String cmdType = messProtocol.getCmdtype();
+		
+		if (null != messProtocol.getCmdtype() && messProtocol.getCmdtype().equals(MESSAGE_NORMAL)) {
+			msgId = messProtocol.getWithOuid();
+			nick = messProtocol.getWithOnickname();
+		} 
+		
+		if (um != null && um.getCurrentUser() != null) {
+			MessageDBHelpler messageHelper = MessageDBHelpler.getHelper(mContext, um.getCurrentUser().id);
+			long id = messageHelper.addMessage(mess);
+			if (id > 0)
+				ServicePool.getinstance(mContext).getEventCenter().fireEvent(mContext, AppContentValues.RECEIVING_CHAT_MESSAGE);   
+		}
+		
+		// cmdType contains : Normal, MeetingNotify, GiftNotify; all is sysmsg
+		// former : SYSTEM_MESSAGE => cmdType
+ 		SocketUtils.showNotification(mContext, function, keyId, msgId, nick, mess.getTitle(), mess.getMessage(), SYSTEM_MESSAGE);
+	}
+
+	@Override
+	public void onConnectionStatusChanged(String newStatus) {
+
+	}
+
+}

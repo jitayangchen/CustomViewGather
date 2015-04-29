@@ -1,0 +1,66 @@
+package com.jiayuan.date.service.socket;
+
+import java.util.LinkedList;
+import java.util.List;
+
+import android.content.Context;
+
+import com.jiayuan.date.activity.AppDataAccess;
+import com.jiayuan.date.log.Log;
+import com.jiayuan.date.log.LogFactory;
+import com.jiayuan.date.service.ServicePool;
+import com.jiayuan.date.service.socket.protocol.Protocol;
+import com.jiayuan.date.service.socket.protocol.UserInfoProtocol;
+import com.jiayuan.date.service.user.UserManager;
+
+public class UserInfoClient implements SocketListener {
+
+	protected List<SocketListener> listeners = new LinkedList<SocketListener>();
+	protected Context mContext;
+	protected UserManager um;
+	protected Log l = LogFactory.getLog(getClass());
+	protected volatile String connStatus; // marks current connection status
+
+	public void init(Context ctx, SocketService ss) {
+		this.mContext = ctx;
+		um = ServicePool.getinstance(mContext).getUserManager();
+		if (!ss.listeners.isContained(SocketUtils.FUNCTION_USERINFOS, this)) {
+			ss.registerListener(SocketUtils.FUNCTION_USERINFOS, this);
+		} 
+	}
+	
+	/**
+	 * register socket status listener. Listeners will not be called on
+	 * onDataReceived()
+	 * 
+	 * @param sl
+	 */
+	public synchronized void registerSocketListener(SocketListener sl) {
+		listeners.add(sl);
+		sl.onConnectionStatusChanged(connStatus);
+	}
+
+	/**
+	 * remove socket status listener
+	 * 
+	 * @param sl
+	 */
+	public synchronized void removeSocketListener(SocketListener sl) {
+		listeners.remove(sl);
+	}
+	@Override
+	public void onDataReceived(Protocol p) {
+		UserInfoProtocol userProtocol = (UserInfoProtocol)p;
+		String result = userProtocol.getResult();
+		
+		AppDataAccess dataAccess = new AppDataAccess(mContext);
+		dataAccess.parseUsersInfoAndUpdateChatFriendsInfo(result);
+	}
+
+	@Override
+	public void onConnectionStatusChanged(String newStatus) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

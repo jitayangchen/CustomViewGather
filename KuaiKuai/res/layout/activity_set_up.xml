@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dip"
+        android:paddingBottom="5dip"
+        android:paddingRight="10dip"
+        android:background="@color/pink" >
+	        
+        <LinearLayout
+	        android:id="@+id/ll_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:layout_centerVertical="true" >
+	        <ImageView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/back_arrowhead" />
+        </LinearLayout>
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@android:color/white"
+            android:textSize="20dip"
+            android:text="@string/owner_profile_setting" />
+	        
+	</RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line"
+        android:layout_marginTop="10dip" />
+    
+    <Button
+        android:id="@+id/btn_exit"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:textSize="@dimen/text_size_20sp"
+        android:text="@string/set_up_check_update"
+        android:background="@color/white" />
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <Button
+        android:id="@+id/btn_clear_cache"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:textSize="@dimen/text_size_20sp"
+        android:text="@string/set_up_clear_cache"
+        android:background="@color/white" />
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="50dip"
+        android:textSize="@dimen/text_size_20sp"
+        android:text="@string/set_up_logout"
+        android:background="@color/white" />
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+
+</LinearLayout>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pink"
+        android:padding="10dip" >
+
+        <LinearLayout
+            android:id="@+id/ll_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_arrowhead" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="30dip"
+            android:background="@drawable/bg_top_title_box"
+            android:gravity="center_vertical"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal" >
+
+            <RelativeLayout
+                android:id="@+id/rl_title_friends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_top_title_left_box" >
+	            <TextView
+	                android:id="@+id/tv_friends"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_centerInParent="true"
+	                android:paddingLeft="20dip"
+	                android:paddingRight="20dip"
+	                android:textSize="@dimen/text_size_15sp"
+	                android:text="@string/new_chat"
+	                android:textColor="@color/text_top_title_selector" />
+            </RelativeLayout>
+            
+            <ImageView
+                android:layout_width="1dip"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+            
+            <RelativeLayout
+                android:id="@+id/rl_title_follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+	            <TextView
+	                android:id="@+id/tv_follow"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_centerInParent="true"
+	                android:paddingLeft="20dip"
+	                android:paddingRight="20dip"
+	                android:textSize="@dimen/text_size_15sp"
+	                android:text="@string/text_follow"
+	                android:textColor="@color/text_top_title_selector" />
+            </RelativeLayout>
+            
+            <ImageView
+                android:layout_width="1dip"
+                android:layout_height="match_parent"
+                android:background="@color/white" />
+            
+            <RelativeLayout
+                android:id="@+id/rl_title_follower"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+	            <TextView
+	                android:id="@+id/tv_follower"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_centerInParent="true"
+	                android:paddingLeft="20dip"
+	                android:paddingRight="20dip"
+	                android:textSize="@dimen/text_size_15sp"
+	                android:text="@string/new_fans"
+	                android:textColor="@color/text_top_title_selector" />
+            </RelativeLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white" >
+
+        <RelativeLayout
+            android:id="@+id/rl_chat_friends"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+            
+	        <me.kkuai.kuailian.widget.pulltorefresh.PullToRefreshListView
+	            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+	            android:id="@+id/pull_refresh_chat_friends"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:scrollbars="none"
+	            ptr:ptrMode="both" />
+	        
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_follow"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" >
+	        
+            <TextView
+                android:id="@+id/follow_null_prompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/friend_follow_list_null"
+                android:visibility="gone" />
+            
+	        <me.kkuai.kuailian.widget.pulltorefresh.PullToRefreshListView
+	            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+	            android:id="@+id/pull_refresh_follow"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            ptr:ptrMode="both" />
+	        
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_follower"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" >
+	        
+            <TextView
+                android:id="@+id/follower_null_prompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/friend_follower_list_null"
+                android:visibility="gone" />
+            
+	        <me.kkuai.kuailian.widget.pulltorefresh.PullToRefreshListView
+	            xmlns:ptr="http://schemas.android.com/apk/res-auto"
+	            android:id="@+id/pull_refresh_follower"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            ptr:ptrMode="both" />
+	        
+        </RelativeLayout>
+    </RelativeLayout>
+
+</LinearLayout>

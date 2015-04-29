@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_personal_data"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dip"
+    android:visibility="gone"
+    android:orientation="vertical" >
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:paddingLeft="10dip"
+        android:gravity="center_vertical"
+        android:text="@string/personal_base_info"
+        android:textSize="@dimen/text_size_15sp"
+        android:background="@color/gray_dfdfdf" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_nick_name"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_nick_name"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_nick_name"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head1"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@drawable/arrow_right" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_birthday"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_birthday"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_birth"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_sex"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_sex"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_sex"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_height"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_height"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_height"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_education"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_education"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_education"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_graduation_school"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_graduation_school"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_graduation_school"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_income"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_income"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_income"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_city"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_city"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_city"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_work_trade"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_worktrade"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_work_trade"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_job"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_job"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_job"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_marriage"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_marriage"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_marriage"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:paddingLeft="10dip"
+        android:gravity="center_vertical"
+        android:text="@string/personal_detailed_info"
+        android:textSize="@dimen/text_size_15sp"
+        android:background="@color/gray_dfdfdf" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_housing_type"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_housing_type"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_housing_type"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_car_type"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_car_type"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_car_type"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_weight"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_weight"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_weight"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_nation"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_nation"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_nation"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_native_place"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_native_place"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_native_place"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_constellation"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_constellation"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_constellation"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_blood_type"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_blood_type"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_blood_type"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:paddingLeft="10dip"
+        android:gravity="center_vertical"
+        android:text="@string/personal_mate_conditions"
+        android:textSize="@dimen/text_size_15sp"
+        android:background="@color/gray_dfdfdf" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_age_range"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_age_range"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_age_range"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_height_range"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_height_range"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_height_range"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_area_range"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_area_range"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_area_range"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_education_requirement"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_education_requirement"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_education_requirement"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+    
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/septal_line" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_income_requirement"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:text="@string/personal_income_requirement"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <TextView
+	        android:id="@+id/tv_income_requirement"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_toLeftOf="@+id/iv_arrow_head"
+	        android:textSize="@dimen/text_size_15sp" />
+	    
+	    <ImageView
+	        android:id="@+id/iv_arrow_head"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerVertical="true"
+	        android:layout_alignParentRight="true"
+	        android:background="@null" />
+	    
+    </RelativeLayout>
+
+</LinearLayout>

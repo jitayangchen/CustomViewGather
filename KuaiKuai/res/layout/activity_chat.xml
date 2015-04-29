@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+    
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/pink"
+        android:padding="10dip" >
+        
+        <LinearLayout
+	        android:id="@+id/ll_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip" >
+	        <ImageView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:background="@drawable/back_arrowhead" />
+        </LinearLayout>
+        
+        <TextView
+            android:id="@+id/tv_nick_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/text_login"
+            android:textSize="20dip" />
+        
+    </RelativeLayout>
+    
+    <me.kkuai.kuailian.widget.KeyboardListenerLinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bg_chat_options"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:id="@+id/chat_expression"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:src="@drawable/chat_expression_bg" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="2dip"
+            android:layout_marginTop="2dip"
+            android:layout_weight="1" >
+
+            <EditText
+                android:id="@+id/text_message"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_gravity="top|left"
+                android:background="@drawable/bg_room_edit"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:hint="@string/chat_text_input"
+                android:maxLines="3"
+                android:paddingRight="5dp" >
+            </EditText>
+
+            <TextView
+                android:id="@+id/not_online_tip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:focusable="true"
+                android:gravity="center"
+                android:text="text_network_error"
+                android:textSize="20sp" 
+                android:visibility="gone">
+            </TextView>
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/button_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:layout_marginRight="5dip"
+            android:paddingLeft="8dip"
+            android:paddingRight="8dip"
+            android:background="@drawable/bg_btn_signup_commit_selector"
+            android:text="@string/chat_message_send"
+            android:textColor="@color/white" />
+    </me.kkuai.kuailian.widget.KeyboardListenerLinearLayout>
+    
+    <me.kkuai.kuailian.widget.pulltorefresh.PullToRefreshListView
+        android:id="@+id/pull_refresh_chat_message"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/rl_top"
+        android:layout_above="@id/ll_bottom"
+        android:cacheColorHint="@color/transparent"
+	    android:listSelector="@color/transparent"
+	    android:divider="@drawable/list_divider"
+	    android:stackFromBottom="false"
+	    android:transcriptMode="normal"
+	    transcriptmode ="alwaysscroll" />
+
+</RelativeLayout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="10dip" >
+
+    <RelativeLayout
+        android:id="@+id/rl_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        
+	    <ImageView
+	        android:id="@+id/iv_head"
+	        android:layout_width="@dimen/item_image_size"
+	        android:layout_height="@dimen/item_image_size"
+	        android:padding="5dp" />
+    
+	    <TextView
+	        android:id="@+id/tv_msg_unread_num"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:gravity="center"
+	        android:padding="3dip"
+	        android:layout_alignRight="@id/iv_head"
+	        android:background="@drawable/icon_bg_msg_count"
+	        android:textColor="@color/white"
+	        android:textSize="@dimen/text_size_11sp"
+	        android:text="10" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:layout_toRightOf="@id/rl_head" >
+	
+        <RelativeLayout
+            android:id="@+id/ll_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical" >
+		    <TextView
+		        android:id="@+id/tv_nick_name"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:ellipsize="end"
+		        android:maxLines="1"
+		        android:text="nick name"
+		        android:textSize="@dimen/text_size_17sp" />
+		
+		    <TextView
+		        android:id="@+id/tv_last_update_time"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentRight="true"
+		        android:layout_gravity="right"
+		        android:paddingRight="10dp" />
+	    
+	    </RelativeLayout>
+	
+	    <TextView
+	        android:id="@+id/tv_new_msg"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="3dip"
+	        android:layout_below="@id/ll_top"
+	        android:ellipsize="end"
+	        android:maxLines="1"
+	        android:paddingBottom="10dp"
+	        android:text="sdag"
+	        android:textColor="@color/gray_666666" />
+    
+    </RelativeLayout>
+
+</RelativeLayout>

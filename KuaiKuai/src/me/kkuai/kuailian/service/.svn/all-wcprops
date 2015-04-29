@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/mobile_client/!svn/ver/16869/Android/Jiayuan_QDate/JiayuanDate/src/com/jiayuan/date/service/socket
+END
+SetChatReadedClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/mobile_client/!svn/ver/16674/Android/Jiayuan_QDate/JiayuanDate/src/com/jiayuan/date/service/socket/SetChatReadedClient.java
+END
+MessageClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/mobile_client/!svn/ver/16674/Android/Jiayuan_QDate/JiayuanDate/src/com/jiayuan/date/service/socket/MessageClient.java
+END
+SocketManager.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/mobile_client/!svn/ver/16674/Android/Jiayuan_QDate/JiayuanDate/src/com/jiayuan/date/service/socket/SocketManager.java
+END
+HeartbeatMsgClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/mobile_client/!svn/ver/16674/Android/Jiayuan_QDate/JiayuanDate/src/com/jiayuan/date/service/socket/HeartbeatMsgClient.java
+END
+PushMsgItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/mobile_client/!svn/ver/16674/Android/Jiayuan_QDate/JiayuanDate/src/com/jiayuan/date/service/socket/PushMsgItem.java
+END
+OffLineMessageClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 129
+/svn/mobile_client/!svn/ver/16674/Android/Jiayuan_QDate/JiayuanDate/src/com/jiayuan/date/service/socket/OffLineMessageClient.java
+END
+LoginClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/mobile_client/!svn/ver/16674/Android/Jiayuan_QDate/JiayuanDate/src/com/jiayuan/date/service/socket/LoginClient.java
+END
+ReceiveMsgClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/mobile_client/!svn/ver/16674/Android/Jiayuan_QDate/JiayuanDate/src/com/jiayuan/date/service/socket/ReceiveMsgClient.java
+END
+SocketService.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/mobile_client/!svn/ver/16869/Android/Jiayuan_QDate/JiayuanDate/src/com/jiayuan/date/service/socket/SocketService.java
+END
+SocketUtils.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/mobile_client/!svn/ver/16674/Android/Jiayuan_QDate/JiayuanDate/src/com/jiayuan/date/service/socket/SocketUtils.java
+END
+UserInfoClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/mobile_client/!svn/ver/16674/Android/Jiayuan_QDate/JiayuanDate/src/com/jiayuan/date/service/socket/UserInfoClient.java
+END
+ChatClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 119
+/svn/mobile_client/!svn/ver/16674/Android/Jiayuan_QDate/JiayuanDate/src/com/jiayuan/date/service/socket/ChatClient.java
+END
+SocketListener.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/mobile_client/!svn/ver/16674/Android/Jiayuan_QDate/JiayuanDate/src/com/jiayuan/date/service/socket/SocketListener.java
+END

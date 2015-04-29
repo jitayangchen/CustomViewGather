@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_gallery_album"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_gravity="right" >
+        <TextView
+            android:id="@+id/tv_kuai_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dip"
+            android:layout_centerVertical="true" />
+        <Button
+            android:id="@+id/btn_get_kuai_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/tv_kuai_money"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_btn_signup_commit_selector"
+            android:text="@string/personal_get_kuai_coin" />
+    </RelativeLayout>
+    
+    <me.kkuai.kuailian.widget.HorizontalListView
+        android:id="@+id/gallery_album"
+        android:layout_width="fill_parent"
+        android:layout_height="80dip"
+        android:layout_margin="10dip"
+        android:layout_gravity="center_vertical"
+        android:spacing="1dip" />
+
+</LinearLayout>

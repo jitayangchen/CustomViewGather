@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:background="@drawable/dialog_loading"
+    android:orientation="vertical" >
+    
+    <TextView
+        android:id="@+id/tv_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dip"
+        android:paddingBottom="20dip"
+        android:paddingLeft="90dip"
+        android:paddingRight="90dip"
+        android:text="@string/owner_select_camera"
+        android:textColor="@color/text_dialog_selector"
+        android:textSize="@dimen/text_size_25sp" />
+    
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/gray_transparent" />
+    
+    <TextView
+        android:id="@+id/tv_album"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dip"
+        android:paddingBottom="20dip"
+        android:paddingLeft="90dip"
+        android:paddingRight="90dip"
+        android:text="@string/owner_select_album"
+        android:textColor="@color/text_dialog_selector"
+        android:textSize="@dimen/text_size_25sp" />
+    
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/gray_transparent" />
+    
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dip"
+        android:paddingBottom="20dip"
+        android:paddingLeft="90dip"
+        android:paddingRight="90dip"
+        android:text="@string/dialog_cancel"
+        android:textColor="@color/text_dialog_selector"
+        android:textSize="@dimen/text_size_25sp" />
+
+</LinearLayout>

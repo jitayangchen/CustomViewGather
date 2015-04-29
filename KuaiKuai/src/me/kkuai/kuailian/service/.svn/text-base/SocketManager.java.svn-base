@@ -1,0 +1,55 @@
+package com.jiayuan.date.service.socket;
+
+import android.content.Context;
+
+import com.jiayuan.date.log.Log;
+import com.jiayuan.date.log.LogFactory;
+
+public class SocketManager {
+//	protected SocketService ss = ServicePool.getinstance().getSocketService();
+//	protected UserManager um = ServicePool.getinstance().getUserManager();
+	protected SocketService ss;
+	protected ChatClient chatClient = new ChatClient();
+	protected SetChatReadedClient readedStatusClient = new SetChatReadedClient();
+	protected LoginClient loginClient = new LoginClient();
+	protected MessageClient messageClient = new MessageClient();
+	protected OffLineMessageClient offLineClient = new OffLineMessageClient();
+	protected UserInfoClient userClient = new UserInfoClient();
+	protected Context mContext;
+	protected Log l = LogFactory.getLog(SocketManager.class);
+	public void start(Context ctx, SocketService ss)
+	{
+		mContext = ctx;
+		chatClient.init(ctx, ss);
+		loginClient.init(ctx, ss);
+		messageClient.init(ctx, ss);
+		offLineClient.init(ctx, ss);
+		userClient.init(ctx, ss);
+		readedStatusClient.init(ctx, ss);
+		
+//		ServicePool.getinstance(ctx).getSocketService().init(ctx);
+
+	}
+	
+	public ChatClient getChatClient()
+	{
+		return chatClient;
+	}
+	
+	public MessageClient getMessageClient() {
+		return messageClient;
+	}
+	
+	public OffLineMessageClient getOffLineClient() {
+		return offLineClient;
+	}
+
+	public UserInfoClient getUserClient() {
+		return userClient;
+	}
+
+	public SocketService getSock()
+	{
+		return ss;
+	}
+}

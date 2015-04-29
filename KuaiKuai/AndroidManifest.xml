@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="me.kkuai.kuailian"
+    android:versionCode="5"
+    android:versionName="1.0.3.1" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="19" />
+    
+    <instrumentation
+        android:name="android.test.InstrumentationTestRunner"
+        android:targetPackage="me.kkuai.kuaikuai" />
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <application
+        android:name="me.kkuai.kuailian.KApplication"
+        android:allowBackup="true"
+        android:persistent="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <uses-library android:name="android.test.runner" />
+        <activity
+            android:name="me.kkuai.kuailian.activity.Splash"
+            android:label="@string/app_name"
+            android:theme="@style/CustomNoTitle" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.MainActivity"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.login.Login"
+            android:theme="@style/CustomNoTitle"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.register.Register"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.owner.OwnerProfile"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.owner.OtherProfile"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.owner.PhotoAlbum"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.login.LostPssword"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.register.FinishRegister"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.register.UserProtocol"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.chat.FriendsList"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.chat.Chat"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateHidden"
+            android:theme="@style/CustomNoTitle"
+            android:launchMode="singleTask" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.dialog.DialogActivityWheel"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.utils.cropimage.CropImageActivity"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.ownerphoto.PhotoShow"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.join.SignUp"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.join.SelectJoinTime"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.room.LiveRoom"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/CustomNoTitle"
+            android:launchMode="singleTask" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.chat.AttentionList"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.owner.set.SetUp"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.chat.FansList"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.ownerphoto.SinglePhotoShow"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.room.RoomAllUser"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.room.ShowRoomUser"
+            android:theme="@style/CustomNoTitle" />
+        
+        <activity
+            android:name="me.kkuai.kuailian.activity.owner.UploadPhoto"
+            android:theme="@style/CustomNoTitle"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
+        
+        <service 
+            android:name="me.kkuai.kuailian.service.CoreService"
+            android:enabled="true" >
+        </service>
+        
+        <service 
+            android:name="me.kkuai.kuailian.service.RoomService"
+            android:enabled="true" >
+        </service>
+        
+        <receiver android:name="me.kkuai.kuailian.network.NetStatusWatcher">
+            <intent-filter android:priority="1000" >
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+            </intent-filter>
+        </receiver>
+        
+        <receiver android:name="me.kkuai.kuailian.service.AlarmReceiver">
+            <intent-filter android:priority="1000" >
+                <action android:name="me.kkuai.kuaikuai.ALARM_RECEIVER_HEARTBEAT"/>
+            </intent-filter>
+        </receiver>
+        
+        <receiver android:name="me.kkuai.kuailian.service.receiver.LiveRoomAlarmReceiver">
+            <intent-filter android:priority="1000" >
+                <action android:name="me.kkuai.kuaikuai.ALARM_RECEIVER_LIVE_ROOM"/>
+            </intent-filter>
+        </receiver>
+        
+        <receiver android:name="me.kkuai.kuailian.service.receiver.LiveRoomDataUpdateReceiver">
+            <intent-filter android:priority="1000" >
+                <action android:name="me.kkuai.kuaikuai.ALARM_RECEIVER_LIVE_ROOM_DOWN_LOAD_DATA"/>
+            </intent-filter>
+        </receiver>
+        
+        <receiver android:name="me.kkuai.kuailian.service.receiver.SystemTimeModtifyReceiver">
+            <intent-filter android:priority="1000" >
+                <!-- <action android:name="android.intent.action.DATE_CHANGED"/> -->
+                <action android:name="android.intent.action.TIME_SET"/>
+            </intent-filter>
+        </receiver>
+        
+        <receiver android:name="me.kkuai.kuailian.service.receiver.VersionUpdateCompleteReceiver">
+            <intent-filter >
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+            </intent-filter>
+        </receiver>
+        
+    </application>
+
+</manifest>

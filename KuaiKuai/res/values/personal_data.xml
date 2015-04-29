@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="personal_sex">
+		<item>男</item>
+		<item>女</item>
+	</string-array>
+	
+    <string-array name="personal_education">
+        <item>中专</item>
+        <item>大专</item>
+        <item>本科</item>
+        <item>双学士</item>
+        <item>硕士</item>
+        <item>博士</item>
+        <item>博士后</item>
+    </string-array>
+	
+    <string-array name="personal_income">
+		<item>不限</item>
+		<item>2000以下</item>
+		<item>2000~5000</item>
+		<item>5000~10000</item>
+		<item>10000~20000</item>
+		<item>20000以上</item>
+	</string-array>
+	
+    <string-array name="personal_work">
+		<item>计算机/互联网/通信</item>
+		<item>公务员/事业单位</item>
+		<item>教师</item>
+		<item>医生</item>
+		<item>护士</item>
+		<item>空乘人员</item>
+		<item>生产/工艺/制造</item>
+		<item>商业/服务业/个体经营</item>
+		<item>金融/银行/投资/保险</item>
+		<item>文化/广告/传媒</item>
+		<item>娱乐/艺术/表演</item>
+		<item>律师/法务</item>
+		<item>教育/培训/管理咨询</item>
+		<item>建筑/房地产/物业</item>
+		<item>消费零售/贸易/交通物流</item>
+		<item>酒店旅游</item>
+		<item>现代农业</item>
+		<item>在校学生</item>
+	</string-array>
+	
+    <string-array name="personal_job">
+		<item>普通员工</item>
+		<item>中层管理者</item>
+		<item>高管</item>
+		<item>企业主</item>
+	</string-array>
+	
+    <string-array name="personal_marriage">
+		<item>未婚</item>
+		<item>已婚</item>
+		<item>离异</item>
+		<item>丧偶</item>
+	</string-array>
+	
+    <string-array name="personal_housing">
+		<item>已购房</item>
+		<item>租房</item>
+		<item>单位宿舍</item>
+		<item>与家人合住</item>
+	</string-array>
+	
+    <string-array name="personal_car">
+		<item>已购车</item>
+		<item>未购车</item>
+	</string-array>
+	
+    <string-array name="personal_nation">
+		<item>汉族</item>
+		<item>藏族</item>
+		<item>朝鲜族</item>
+		<item>蒙古族</item>
+		<item>回族</item>
+		<item>满族</item>
+		<item>维吾尔族</item>
+		<item>壮族</item>
+		<item>彝族</item>
+		<item>苗族</item>
+		<item>其它民族</item>
+	</string-array>
+	
+    <string-array name="personal_constellation">
+		<item>白羊座</item>
+		<item>金牛座</item>
+		<item>双子座</item>
+		<item>巨蟹座</item>
+		<item>狮子座</item>
+		<item>处女座</item>
+		<item>天秤座</item>
+		<item>天蝎座</item>
+		<item>射手座</item>
+		<item>摩羯座</item>
+		<item>水瓶座</item>
+		<item>双鱼座</item>
+	</string-array>
+	
+    <string-array name="personal_blood_type">
+		<item>A型</item>
+		<item>B型</item>
+		<item>O型</item>
+		<item>AB型</item>
+		<item>其它</item>
+	</string-array>
+	
+</resources>

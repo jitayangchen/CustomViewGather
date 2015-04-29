@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dip"
+    android:background="@color/pink"
+    android:orientation="vertical" >
+    
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+        
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/dialog_cancel_selector" />
+        
+        <TextView
+	        android:id="@+id/tv_edit_dialog_title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerInParent="true"
+	        android:textSize="@dimen/text_size_20sp"
+            android:textColor="@color/white" />
+        
+        <Button
+            android:id="@+id/btn_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/dialog_ok_selector" />
+        
+    </RelativeLayout>
+    
+    <EditText
+        android:id="@+id/et_edit_context"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:layout_marginRight="5dip"
+        android:layout_marginBottom="5dip"
+        android:padding="5dip"
+        android:background="@drawable/edit_nickname_input_box"
+        android:singleLine="true" />
+    
+</LinearLayout>

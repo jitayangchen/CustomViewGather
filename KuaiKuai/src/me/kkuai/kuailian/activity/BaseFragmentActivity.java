@@ -1,0 +1,12 @@
+package me.kkuai.kuailian.activity;
+
+import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+
+public class BaseFragmentActivity extends FragmentActivity {
+
+	@Override
+	protected void onCreate(Bundle savaInstance) {
+		super.onCreate(savaInstance);
+	}
+}

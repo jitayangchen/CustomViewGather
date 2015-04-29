@@ -1,0 +1,97 @@
+package com.jiayuan.date.service.socket;
+
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import android.content.Context;
+
+import com.jiayuan.date.log.Log;
+import com.jiayuan.date.log.LogFactory;
+import com.jiayuan.date.service.ServicePool;
+import com.jiayuan.date.service.socket.protocol.HeartbeatProtocol;
+import com.jiayuan.date.service.socket.protocol.Protocol;
+
+public class HeartbeatMsgClient implements SocketListener {
+	Context mContext;
+	public Timer mTimer;
+	public TimerTask mTimerTask ;
+	long periodTime = 60000; // heartbeat interval
+	HeartbeatProtocol pro = new HeartbeatProtocol();
+	int heartFlag = 0;
+	Log l = LogFactory.getLog(HeartbeatMsgClient.class);
+	
+	public HeartbeatMsgClient()
+	{
+		
+	}
+	
+    public void init(Context ctx){
+    	this.mContext = ctx;
+    	SocketService ss = ServicePool.getinstance(ctx).getSocketService();
+    	if(!ss.listeners.isContained(SocketUtils.HEART_BEAT, this))
+    		ss.registerListener(SocketUtils.HEART_BEAT, this);
+    }
+	
+	//execute heart beat
+	public  void executeHeartbeat(long setExcuteTime){
+		mTimer = new Timer(true);
+		mTimerTask = new TimerTask()
+		{
+			   @Override
+			   public void run(){
+				   if(heartFlag >= 3)
+				   {
+					  l.debug("connect in heartbeat .....");
+					  ServicePool.getinstance(mContext).getSocketService().onConnectionError();  
+					  heartFlag = 0;
+				   }
+				   else
+				   {
+					   heartFlag ++;
+					   sendData();
+				   }
+			   }
+		};
+		
+		mTimer.schedule(mTimerTask, setExcuteTime, setExcuteTime);
+	}
+	
+	public void sendData()
+	{
+		l.debug("send time: " + Calendar.getInstance().getTime().toGMTString());
+		SocketService ss = ServicePool.getinstance(mContext).getSocketService();
+		ss.addRequest(pro);
+	}
+	
+	public void onDataReceived(Protocol p) {
+		l.debug("recv time: " + Calendar.getInstance().getTime().toGMTString());
+		heartFlag = 0;
+	}
+	
+	public void stop()
+	{
+		l.debug("stop heart beat");
+		if(mTimer != null)
+			mTimer.cancel();
+		mTimer = null;
+		heartFlag = 0;
+	}
+	
+	public synchronized void start()
+	{
+		if(mTimer == null)
+			executeHeartbeat(periodTime);
+	}
+
+	public void onConnectionStatusChanged(String newStatus)
+	{
+//		l.debug("onConnectionStatusChanged: " + newStatus);
+//		if(newStatus == SocketListener.SOCKET_CONNECTION_FAILED)
+//			stop();
+//		else if(newStatus == SocketListener.SOCKET_CONNECTION_READY)
+//			start();
+		// no need
+	}
+
+}

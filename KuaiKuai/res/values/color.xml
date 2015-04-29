@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_login">#E8E8E8</color>
+    <color name="text_login">#FFFFFF</color>
+    <color name="white_transparent">#00FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+    <color name="text_hint">#B4B4B4</color>
+    <color name="text_lost_password">#F5927F</color>
+    <color name="transparent">#00000000</color>
+    <color name="user_protocol">#939292</color>
+    <color name="gl_background">#737373</color>
+    <color name="function_button_text_color">#444546</color>
+    
+    <color name="septal_line">#CCCCCC</color>
+    <color name="pink">#F05C5C</color>
+    <color name="gray_transparent">#AAC0C0C0</color>
+    <color name="blue">#3883e8</color>
+    <color name="red">#ef5c5c</color>
+    <color name="light_grey">#999999</color>
+    <color name="gray_dfdfdf">#dfdfdf</color>
+    <color name="gray_666666">#666666</color>
+</resources>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <item type="id" name="tab_option"></item>
+    <item type="id" name="tab_view_tag"></item>
+    
+    <!-- Preference -->
+    <string name="preference_auto_login_key">AutoLogin</string>
+    <string name="preference_user_name">UserName</string>
+    <string name="preference_password">PassWord</string>
+    <string name="preference_uid">Uid</string>
+    <string name="preference_http_token">httpToken</string>
+    
+    <string name="dialog_loading">正在加载中...</string>
+    <string name="dialog_ok">确认</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_signup_prompt">你的快快恋爱直播秀报名成功，你可以在报名页面“我参加的快快”中查看和修改录音！</string>
+    <string name="dialog_delete_photo_prompt">你确定删除该照片么？</string>
+
+    <string name="app_name">快快</string>
+    <string name="action_settings">Settings</string>
+    <string name="register_country">+86</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="nation_wide">全国</string>
+    <string name="age_unit">岁</string>
+    <string name="centimeter">厘米</string>
+	<string name="text_btn_back">返回</string>    
+    
+    <string name="mylistview_release_to_refresh">松开刷新</string>
+    <string name="mylistview_pull_to_refresh">下拉刷新</string>
+    <string name="mylistview_refreshing">正在刷新...</string>
+    
+    
+    <string name="new_chat">聊天</string>
+    <string name="text_follow">关注</string>
+    <string name="text_followed">已关注</string>
+    <string name="cancel_follow">取消关注</string>
+    <string name="text_follow_success">关注成功！</string>
+    <string name="text_cancel_follow_success">取消关注成功！</string>
+    <string name="text_send_success">发送成功！</string>
+    <string name="new_fans">粉丝</string>
+    <string name="attention_search">查找我的联系人</string>
+    
+    <string name="owner_say_hi">打招呼</string>
+	
+    
+    <string name="text_register">注册</string>
+    <string name="text_finish_register">完成注册</string>
+    <string name="get_register">点击获取</string>
+    <string name="text_kuai_kuai">快快</string>
+    <string name="text_male">男</string>
+    <string name="text_female">女</string>
+    <string name="toast_mobile_null">手机号不能为空！</string>
+    <string name="toast_password_null">密码不能为空！</string>
+    <string name="toast_captcha_null">验证码不能为空！</string>
+    <string name="toast_mobile_illegal">请输入正确的手机号！</string>
+    <string name="toast_captcha_send_success">验证码已发送！</string>
+    <string name="toast_nick_name_null">请输入昵称！</string>
+    <string name="toast_sex_null">请选择性别！</string>
+    <string name="toast_nickname_exceed">昵称不能超过16个字母或8个汉字</string>
+    <string name="toast_coin_Inadequate">您的金币不足!</string>
+    
+    <string name="login_kuailian">快恋</string>
+    <string name="login_mobile_number">手机号</string>
+    <string name="login_password">密码</string>
+    <string name="login_login">登录</string>
+    <string name="login_lost_password">忘记密码？</string>
+    <string name="login_toast_please_account">手机号，密码 不能为空</string>
+    
+    <string name="register_input_mobile_number">输入手机号码</string>
+    <string name="register_input_captcha">输入验证码</string>
+    <string name="register_input_login_password">设置登录密码</string>
+    <string name="register_user_protocol">用户使用协议</string>
+    
+    <string name="user_protocol">用户使用协议</string>
+    <string name="user_protocol_book_punctuation">《用户使用协议》</string>
+    
+    <string name="lost_password_lost">忘记密码</string>
+    <string name="lost_password_resetting_password">重新设置新的登录密码</string>
+    <string name="lost_password_btn_submit">提交</string>
+    
+    <string name="finish_register_input_nickname">给自己起一个昵称</string>
+    <string name="finish_register_btn_finish">完成注册</string>
+    
+    <string name="main_me">我</string>
+    <string name="main_chat">聊天</string>
+    <string name="main_join">报名参加</string>
+    <string name="main_join_notes">聚焦寻找</string>
+    <string name="main_watch">观看直播</string>
+    <string name="main_watch_notes">挑选对象</string>
+    <string name="main_advance">提前热身</string>
+    <string name="main_playing">我在直播</string>
+    <string name="main_countdown">倒计时</string>
+    <string name="main_playing_countdown">已进行</string>
+    <string name="main_countdown_content">3:32:04</string>
+    <string name="main_user_love_exponent">恋爱指数</string>
+    
+    <string name="room_text_review">评论</string>
+    <string name="room_text_first_love">一见钟情</string>
+    <string name="room_text_follow">+关注</string>
+    <string name="room_text_love">有好感</string>
+    <string name="room_user_title">Ta们正在看</string>
+    <string name="room_more_user">更多</string>
+    <string name="room_first_love_msg">我对%1$s一见钟情，想进一步了解TA！</string>
+    <string name="room_first_love_to_msg">%1$s对你一见钟情，想进一步了解你！</string>
+    <string name="room_love_msg">我对%1$s有好感，想认识TA！</string>
+    <string name="profile_say_hello_msg">%1$s觉得你不错，向你打了个招呼！</string>
+    <string name="room_follow">我觉得%1$s很不错，关注了TA！</string>
+    <string name="room_follow_to_msg">%1$s觉得你不错，关注了你哦！</string>
+    
+    <string name="friends_list"></string>
+    
+    <string name="chat_talk_to_user">和谁聊天</string>
+    <string name="chat_text_input">请输入内容</string>
+    <string name="chat_message_send">发送</string>
+    <string name="chat_emoji_title">表情</string>
+    <string name="chat_msg_is_null">请输入消息内容</string>
+    <string name="friend_follow_list_null">你还没有关注任何人，去关注些你感兴趣的朋友吧！</string>
+    <string name="friend_follower_list_null">还没有人关注你哦，多跟人聊聊让他们来关注你吧！</string>
+    
+    <string name="owner_profile_setting">设置</string>
+    <string name="owner_profile_live_photo">生活流</string>
+    <string name="owner_profile_personal_datum">个人资料</string>
+    <string name="owner_select_camera">拍照</string>
+    <string name="owner_select_album">从相册选择</string>
+    <string name="owner_text_follow">关注</string>
+    
+    <string name="upload_photo_select_photo">选择照片</string>
+    <string name="upload_photo_release">发布</string>
+    <string name="upload_photo_text_description">加点文字描述会更生动哦！</string>
+    
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="xlistview_footer_hint_loading">加载中...</string>
+    <string name="xlistview_footer_hint_load_error">加载失败， 请重试</string>
+    
+    <string name="personal_get_kuai_coin">领取快币</string>
+    <string name="personal_have_received">明天再领</string>
+    <string name="personal_base_info">基本资料</string>
+    <string name="personal_detailed_info">详细资料</string>
+    <string name="personal_mate_conditions">择偶条件</string>
+    <string name="personal_nick_name">昵称</string>
+    <string name="personal_birthday">生日</string>
+    <string name="personal_sex">性别</string>
+    <string name="personal_birth">生日</string>
+    <string name="personal_height">身高</string>
+    <string name="personal_weight">体重</string>
+    <string name="personal_education">学历</string>
+    <string name="personal_graduation_school">毕业院校</string>
+    <string name="personal_income">月薪</string>
+    <string name="personal_node">内心独白</string>
+    <string name="personal_marriage">婚姻状况</string>
+    <string name="personal_worktrade">工作行业</string>
+    <string name="personal_job">职位</string>
+    <string name="personal_nation">民族</string>
+    <string name="personal_city">所在城市</string>
+    <string name="personal_constellation">星座</string>
+    <string name="personal_blood_type">血型</string>
+    <string name="personal_housing_type">住房</string>
+    <string name="personal_car_type">购车</string>
+    <string name="personal_native_place">籍贯</string>
+    <string name="personal_age_range">年龄范围</string>
+    <string name="personal_height_range">身高范围</string>
+    <string name="personal_area_range">所在地区</string>
+   	<string name="personal_education_requirement">学历</string>
+   	<string name="personal_income_requirement">月薪</string>
+   	<string name="personal_unfilled">未填</string>
+   	<string name="personal_dialog_input_nickname">请输入昵称</string>
+   	<string name="personal_dialog_select_birthday">选择生日</string>
+   	<string name="personal_dialog_select_height">请选择身高</string>
+   	<string name="personal_dialog_select_education">请选择学历</string>
+   	<string name="personal_dialog_input_school">请输入学校名称</string>
+   	<string name="personal_dialog_select_income">请选择月薪</string>
+   	<string name="personal_dialog_select_city">请选择所在城市</string>
+   	<string name="personal_dialog_select_worktrade">请选择工作行业</string>
+   	<string name="personal_dialog_select_job">请选择职位</string>
+   	<string name="personal_dialog_select_marriage">请选择婚姻状况</string>
+   	<string name="personal_dialog_select_housing_type">请选择住房类型</string>
+   	<string name="personal_dialog_select_car_type">请选择购车情况</string>
+   	<string name="personal_dialog_select_weight">请选择体重</string>
+   	<string name="personal_dialog_select_nation">请选择民族</string>
+   	<string name="personal_dialog_select_native_place">请选择籍贯</string>
+   	<string name="personal_dialog_select_constellation">请选择星座</string>
+   	<string name="personal_dialog_select_blood_type">请选择血型</string>
+   	<string name="personal_dialog_select_age_range">请选择年龄范围</string>
+   	<string name="personal_dialog_select_height_range">请选择身高范围</string>
+   	<string name="personal_dialog_select_area_range">请选择所在地区</string>
+   	<string name="personal_dialog_select_education_range">请选择学历</string>
+   	<string name="personal_dialog_select_income_range">请选择月薪</string>
+    
+    <string name="gl_wait">请稍等</string>
+	<string name="gl_choose_title">请选择图片</string>
+	
+	<string name="year">年</string>
+	<string name="month">月</string>
+	<string name="day">日</string>
+	
+	<string name="signup_account_balance">账户余额：</string>
+	<string name="signup_join_area">快快地区：</string>
+	<string name="signup_select_time">选择时间：</string>
+	<string name="signup_join_price">费用：</string>
+	<string name="signup_join_title">\u0020\u0020报名参加\u0020\u0020</string>
+	<string name="signup_joined_title">参加的快快</string>
+	<string name="signup_commit">提交并支付费用</string>
+	<string name="signup_estimate_turnout_number">预计到场人数</string>
+	<string name="signup_recording_audio">点击录制语音</string>
+	<string name="signup_record_finish">完成</string>
+	<string name="signup_record_cancel">取消</string>
+	<string name="signup_explain">你可以先提交报名信息抢占时段，稍后在“我参加的快快”页面再录制语音！</string>
+	<string name="signup_repeat_record">重录</string>
+	<string name="signup_delete_audio">删除</string>
+	<string name="signup_optional">可选</string>
+	<string name="signup_joined_data_null">你还没有参加过快快恋爱秀，赶快去报名参加恋爱秀吧！</string>
+	<string name="signup_joined_overtime">本次快快恋爱秀已过期！</string>
+	<string name="signup_coin_prompt">从账户余额扣除</string>
+	<string name="signup_commit_success">提交成功!</string>
+	<string name="signup_not_selected_time">请选择你参加的时间段哦!</string>
+	<string name="signup_delete_voice_prompt">你确定要删除这段语音吗？</string>
+	<string name="signup_rerecord_fail">提交失败！</string>
+	
+	<string name="select_join_time_title">选择时间</string>
+	<string name="select_nuselect_time">请选择一个时间段</string>
+	<string name="select_save_time">保存</string>
+	
+	<string name="set_up_logout">注销</string>
+	<string name="set_up_exit">退出</string>
+	<string name="set_up_check_update">检查更新</string>
+	<string name="set_up_clear_cache">清理缓存</string>
+	
+	<!-- PullToRefresh -->
+	<string name="pull_to_refresh_pull_label">下拉刷新</string>
+    <string name="pull_to_refresh_release_label">松开刷新</string>
+    <string name="pull_to_refresh_refreshing_label">正在刷新...</string>
+    
+    <string name="pull_to_load_bottom">上拉加载更多</string>
+    <string name="pull_to_load_release_lable">松开加载</string>
+    <string name="pull_to_load_refreshing_label">正在加载...</string>
+
+    <!-- Just use standard Pull Down String when pulling up. These can be set for languages which require it -->
+    <string name="pull_to_refresh_from_bottom_pull_label">@string/pull_to_refresh_pull_label</string>
+    <string name="pull_to_refresh_from_bottom_release_label">@string/pull_to_refresh_release_label</string>
+    <string name="pull_to_refresh_from_bottom_refreshing_label">@string/pull_to_refresh_refreshing_label</string>
+    
+</resources>

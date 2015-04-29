@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+    
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_home_gallery_item" >
+    
+	    <RelativeLayout
+	        android:id="@+id/rl_head"
+	        android:layout_width="127dip"
+	        android:layout_height="131dip"
+	        android:layout_marginTop="15dip"
+	        android:layout_centerHorizontal="true"
+	        android:background="@drawable/bg_home_user_photo" >
+	    
+		    <ImageView
+		        android:id="@+id/iv_main_user_photo"
+		        android:layout_width="120dip"
+		        android:layout_height="120dip"
+		        android:layout_marginTop="3dip"
+		        android:layout_marginBottom="0dip"
+		        android:layout_marginLeft="0dip"
+		        android:layout_marginRight="0dip"
+		        android:layout_centerHorizontal="true" />
+	    
+	    </RelativeLayout>
+	    
+	    <TextView
+	        android:id="@+id/tv_nick_name"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="9dip"
+	        android:layout_centerHorizontal="true"
+	        android:layout_below="@id/rl_head"
+	        android:textColor="@color/pink"
+	        android:textSize="@dimen/text_size_20sp"
+	        android:text="nick name" />
+	    
+	    <TextView
+	        android:id="@+id/tv_user_info_top"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="30dip"
+	        android:layout_centerHorizontal="true"
+	        android:layout_below="@id/tv_nick_name"
+	        android:textColor="@color/gl_background"
+	        android:text="dsalgsdag" />
+	    
+	    <TextView
+	        android:id="@+id/tv_user_info_bottom"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_centerHorizontal="true"
+	        android:layout_below="@id/tv_user_info_top"
+	        android:textColor="@color/gl_background"
+	        android:text="dsalgsdag" />
+    
+    </RelativeLayout>
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/rl_top"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/main_user_love_exponent"
+	        android:textColor="@android:color/darker_gray" />
+	    
+	    <TextView
+	        android:id="@+id/tv_love_exponent"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:gravity="center_horizontal"
+	        android:paddingTop="2dip"
+	        android:background="@drawable/icon_heart"
+	        android:textColor="@color/white"
+	        android:textSize="@dimen/text_size_11sp"
+	        android:text="99" />
+    </LinearLayout>
+
+</RelativeLayout>

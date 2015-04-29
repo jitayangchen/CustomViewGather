@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dip" >
+    
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+	    <RelativeLayout
+	        android:id="@+id/rl_left"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content" >
+		    <ImageView
+		        android:id="@+id/iv_head_left"
+		        android:layout_width="40dip"
+		        android:layout_height="40dip"
+		        android:layout_alignParentBottom="true" />
+		    
+		    <LinearLayout
+		        android:id="@+id/ll_left"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="3dip"
+		        android:gravity="center"
+		        android:padding="5dip"
+		        android:layout_toRightOf="@id/iv_head_left"
+		        android:background="@drawable/bg_chat_msg_left"
+		        android:layout_alignParentBottom="true" >
+			    <TextView
+			        android:id="@+id/tv_msg_content_left"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="5dip"
+			        android:layout_marginBottom="5dip"
+			        android:layout_marginLeft="12dip"
+			        android:layout_marginRight="2dip"
+			        android:lineSpacingExtra="3sp"
+			        android:textSize="@dimen/text_size_17sp" />
+			    
+			    <ImageView
+	                android:id="@+id/iv_play_voice_animation_left"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="5dip"
+			        android:layout_marginBottom="5dip"
+			        android:layout_marginLeft="50dip"
+			        android:layout_marginRight="40dip"
+	                android:background="@drawable/play_voice_animation_3"
+	                android:visibility="gone" />
+		    </LinearLayout>
+	    </RelativeLayout>
+	    
+	    <RelativeLayout
+	        android:id="@+id/rl_right"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true" >
+		    
+	        
+		    <ImageView
+		        android:id="@+id/iv_head_right"
+		        android:layout_width="40dip"
+		        android:layout_height="40dip"
+		        android:layout_alignParentRight="true"
+		        android:layout_alignParentBottom="true" />
+		    
+		    <LinearLayout
+		        android:id="@+id/ll_right"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginRight="3dip"
+		        android:gravity="center"
+		        android:padding="5dip"
+		        android:layout_toLeftOf="@id/iv_head_right"
+		        android:background="@drawable/bg_chat_msg_right"
+		        android:layout_alignParentBottom="true" >
+			    <TextView
+			        android:id="@+id/tv_msg_content_right"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_marginTop="5dip"
+			        android:layout_marginBottom="5dip"
+			        android:layout_marginRight="12dip"
+			        android:layout_marginLeft="2dip"
+			        android:lineSpacingExtra="3sp"
+			        android:textSize="@dimen/text_size_17sp" />
+			    
+			    <ImageView
+	                android:id="@+id/iv_play_voice_animation_right"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="10dip"
+			        android:layout_marginBottom="10dip"
+			        android:layout_marginRight="15dip"
+			        android:layout_marginLeft="5dip"
+	                android:background="@drawable/play_voice_animation_3"
+	                android:visibility="gone" />
+		    </LinearLayout>
+		    
+	    </RelativeLayout>
+    
+    </RelativeLayout>
+    
+    <TextView
+        android:id="@+id/tv_msg_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/rl_top" />
+
+</RelativeLayout>

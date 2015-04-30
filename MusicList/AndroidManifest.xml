@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.musiclist"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+    
+ <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_SMS" >
+    </uses-permission>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+  
+   
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/comandroidmusic"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <meta-data android:name="APP_ID" android:value="e74ee0ae1c11488666dee45d711510e7 " />
+        <meta-data android:name="APP_PID" android:value="default" />
+        <activity android:name="com.cn.lyric.activity.IndexGroupActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.cn.lyric.activity.MusicPlayingActivity" >
+        </activity>
+        <activity android:name="com.cn.lyric.activity.AllListActivity" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.activity.TabArtistsActivity"
+            android:theme="@style/test" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.activity.ListOfAlbumsActivity"
+            android:theme="@style/test" >
+        </activity>
+        <activity android:name="com.cn.lyric.activity.ListOfSearchActivity" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.activity.TabOnlineActivity"
+            android:theme="@style/test" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.activity.TabListActivity"
+            android:theme="@style/test" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.LrcSearch"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity android:name="com.cn.lyric.activity.DownJsonlrc" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.activity.TabIMainActivity"
+            android:theme="@style/test" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.activity.SettingActivity"
+            android:theme="@style/test" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.activity.ListOfNowActivity"
+            android:theme="@style/test" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.activity.ListOfRecentlyActivity"
+            android:theme="@style/test" >
+        </activity>
+        <activity android:name="com.cn.lyric.LyricActivity" />
+        <activity android:name="com.cn.lyric.NoActivity" />
+        <activity
+            android:name="com.cn.lyric.activity.PlayList"
+            android:theme="@style/test" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.activity.AboutActivity"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.activity.SleepActivity"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.activity.EquizeActivity"
+            android:theme="@style/test" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.activity.BaiduOnline"
+            android:theme="@style/test" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.activity.ListOfIMainActivity"
+            android:theme="@style/test" >
+        </activity>
+        <activity
+            android:name="com.cn.lyric.activity.ListOfArtistsActivity"
+            android:theme="@style/test" >
+        </activity>
+
+        <service android:name="com.cn.lyric.service.MusicService" >
+        </service>
+        <service android:name="com.cn.lyric.service.VolumService" >
+        </service>
+        <service android:name="com.cn.receiver.WidgetNextService" >
+        </service>
+        <service android:name="com.cn.receiver.WidgetPlayService" >
+        </service>
+        <service android:name="com.cn.receiver.WidgetFrontService" >
+        </service>
+        <service android:name="com.cn.lyric.service.SleepService" >
+        </service>
+
+        <receiver android:name="com.youyamusic.update.ReceiverTesk" >
+            <intent-filter android:priority="2147483647" >
+                <action android:name="com.youyamusic.update" >
+                </action>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.example.widget.appWidgetProvider"
+            android:icon="@drawable/icon_widget" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="liu.appwidget3.START_APP_WIDGET" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="liu.appwidget3.FRONT_APP_WIDGET" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="liu.appwidget3.NEXT_APP_WIDGET" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="liu.appwidget3.STOP_APP_WIDGET" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="liu.appwidget3.Not5ificat5ion" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/appwidget_info" />
+        </receiver>
+        <receiver android:name="com.cn.receiver.XiangqingReceive" >
+            <intent-filter android:priority="999" >
+                <action android:name="liu.appwidget3.xiangqing" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.cn.receiver.NotiReceive" >
+            <intent-filter android:priority="999" >
+                <action android:name="liu.appwidget3.Not5ificat5ion" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.cn.receiver.NotiReceiveNext" >
+            <intent-filter android:priority="999" >
+                <action android:name="liu.appwidget3.Not5ificat5ionnext" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
